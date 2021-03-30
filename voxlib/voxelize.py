@@ -160,7 +160,7 @@ def get_intersecting_voxels_depth_first(vertex_1, vertex_2, vertex_3):
     return result_positions
 
 
-def voxelize(file_path, resolution, progress_bar=None):
+def voxelize(file_path, resolution=0, scale=0, progress_bar=None):
     """
 
     @type file_path: str
@@ -178,7 +178,11 @@ def voxelize(file_path, resolution, progress_bar=None):
         raise NotImplementedError("Unsupported polygonal face elements. Only triangular facets supported.")
 
     list_of_triangles = list(mesh_reader.get_facets())
-    scale, shift, triangle_count = get_scale_and_shift(list_of_triangles, resolution)
+	if resolution == 0:
+		resolution = 10
+    sc, shift, triangle_count = get_scale_and_shift(list_of_triangles, resolution)
+	if scale == 0:
+		scale = sc
     progress_counter = 0
     voxels = set()
     bounding_box = BoundaryBox()
@@ -193,13 +197,3 @@ def voxelize(file_path, resolution, progress_bar=None):
     while len(voxels) > 0:
         (x, y, z) = voxels.pop()
         yield x-center[0], y-center[1], z-center[2]
-
-
-if __name__ == '__main__':
-    # parse cli args
-    parser = argparse.ArgumentParser(description='stl/obj file to voxels converter')
-    parser.add_argument('input')
-    parser.add_argument('resolution', type=int)
-    args = parser.parse_args()
-    for pos_x, pos_y, pos_z in voxelize(args.input, args.resolution):
-        sys.stdout.write("{}\t{}\t{}\n".format(pos_x, pos_y, pos_z))
