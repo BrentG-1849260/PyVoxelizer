@@ -178,11 +178,11 @@ def voxelize(file_path, resolution=0, scale=0, progress_bar=None):
         raise NotImplementedError("Unsupported polygonal face elements. Only triangular facets supported.")
 
     list_of_triangles = list(mesh_reader.get_facets())
-	if resolution == 0:
-		resolution = 10
+    if resolution == 0:
+        resolution = 10
     sc, shift, triangle_count = get_scale_and_shift(list_of_triangles, resolution)
-	if scale == 0:
-		scale = sc
+    if scale == 0:
+        scale = sc
     progress_counter = 0
     voxels = set()
     bounding_box = BoundaryBox()
