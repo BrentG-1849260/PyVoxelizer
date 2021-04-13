@@ -167,8 +167,8 @@ def voxelize(file_path, resolution=0, scale=0, show_progress_bar=True):
     @type resolution: int
     @type progress_bar: bool
     """
-	if show_progress_bar:
-	    progress_bar = print_progress_bar
+    if show_progress_bar:
+        progress_bar = print_progress_bar
     mesh_reader = MeshReader()
     if file_path.endswith('.zip'):
         mesh_reader.read_archive(file_path)
@@ -188,8 +188,8 @@ def voxelize(file_path, resolution=0, scale=0, show_progress_bar=True):
     bounding_box = BoundaryBox()
     for triangle in list_of_triangles:
         progress_counter += 1
-		if show_progress_bar:
-		    progress_bar(progress_counter, triangle_count, prefix="Voxelize: ")
+        if show_progress_bar:
+            progress_bar(progress_counter, triangle_count, prefix="Voxelize: ")
 
         (vertex_1, vertex_2, vertex_3) = scale_and_shift_triangle(triangle, scale, shift)
         bounding_box.from_vertexes(vertex_1, vertex_2, vertex_3)
