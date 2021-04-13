@@ -167,7 +167,7 @@ def voxelize(file_path, resolution=0, scale=0, show_progress_bar=True):
     @type resolution: int
     @type progress_bar: bool
     """
-	if show_progress_bar
+	if show_progress_bar:
 		progress_bar = print_progress_bar
     mesh_reader = MeshReader()
     if file_path.endswith('.zip'):
